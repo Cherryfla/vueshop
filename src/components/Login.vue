@@ -31,7 +31,7 @@
       return{
         loginForm: {
           username: 'admin',
-          password: '12345678'
+          password: '123456'
         },
         loginFormRules: {
           username: [
@@ -40,7 +40,7 @@
           ],
           password: [
             { required: true, message: '请输入密码', trigger: 'blur' },
-            { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur' }
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
           ]
         }
       }
@@ -55,14 +55,13 @@
           if(!valid)
             return console.log('账号或密码不符合规范')
           //await
-          const username = this.loginForm.username
-          const password = this.loginForm.password
-          if(username === 'admin' && password === '12345678') {
+          const {data:res} = await this.$http.post('login',this.loginForm)
+          if(res.meta.status === 200) {
             this.$message.success('登录成功')
             //保存token
-            const token = '123456'
+            const token = res.data.token
             window.sessionStorage.setItem('token', token)
-            this.$router.push('/home')
+            await this.$router.push('/home')
           }
           else
             this.$message.error('登录失败')
