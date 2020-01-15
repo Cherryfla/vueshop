@@ -55,7 +55,6 @@
           <!--options用来指定数据源-->
           <el-cascader v-model="selectedKeys" :options="parentCateList"
                        :props="cascaderProps" clearable  change-on-select @change="parentCateChanged">
-
           </el-cascader>
         </el-form-item>
       </el-form>
